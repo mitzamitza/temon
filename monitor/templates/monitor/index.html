@@ -1,0 +1,10 @@
+{% if all_sensors %}
+    <h3>Aici sunt toti Senzorii Mei:</h3>
+    <ul>
+        {% for sensor in all_sensors %}
+        <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }}</a> </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No Sensors detected</h3>
+{% endif %}
