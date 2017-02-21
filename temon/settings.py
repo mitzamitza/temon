@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ["0.0.0.0", "192.168.88.235"]
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'api',
     'monitor.apps.MonitorConfig',
     'django.contrib.admin',
     'django.contrib.auth',
