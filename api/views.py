@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from monitor.models import Values
 from api.serializers import TempSerializer
 
-
+@api_view(['GET', 'POST', 'DELETE'])
 def temp_list(request):
     """
     List all temps, or create a new temp
@@ -16,9 +16,10 @@ def temp_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = TempSerializer(data=request.DATA)
+        serializer = TempSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

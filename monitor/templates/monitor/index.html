@@ -2,7 +2,7 @@
     <h3>Aici sunt toti Senzorii Mei:</h3>
     <ul>
         {% for sensor in all_sensors %}
-        <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }}</a> </li>
+        <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }} - {{ sensor.sensor_ip }}</a> </li>
         {% endfor %}
     </ul>
 {% else %}
