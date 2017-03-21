@@ -5,27 +5,34 @@
 
 {% block body %}
 {% if all_sensors %}
-    <h3>Aici sunt toti Senzorii Mei:</h3>
-     <div class="container">
-    <div id="g1" class="gauge"></div>
+    <h1>Sensor list:</h1>
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-md-4">
 
 
-
-  </div>
 {% load staticfiles %}
 <script src="{% static 'js/justgauge/raphael-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/justgauge/justgage.js' %}"></script>
-    <script>
-    var g1;
+
+{% for sensor in all_sensors %}
+
+    <div class="container-fluid ">
+    <div id="g{{ sensor.id}}" class="col-xs-6 col-md-4">
+    </div>
+  </div>
+<script>
+    var g{{ sensor.id}};
     document.addEventListener("DOMContentLoaded", function(event) {
         g1 = new JustGage({
-            id: "g1",
-            title: "Visitors",
-            value: 72.41,
+            id: "g{{ sensor.id}}",
+            title: "{{ sensor.name }}",
+            value: {{ sensor.values_set.latest.temperature }},
             decimals: 2,
             symbol: '˚',
             min: 0,
-            max: 100,
+            max: 50,
             donut: true,
             gaugeWidthScale: 0.6,
             counter: true,
@@ -37,7 +44,12 @@
         });
     });
     </script>
+    {% endfor %}
 
+        </div>
+    </div>
+</div>
+<!--
     <ul>
         {% for sensor in all_sensors %}
         <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }} -  {{ sensor.id }} -  {{ sensor.values_set.latest.temperature }}
@@ -45,7 +57,7 @@
         {% endfor %}
 
     </ul>
-
+-->
 {% else %}
     <h3>No Sensors detected</h3>
 {% endif %}
