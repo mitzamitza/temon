@@ -21,4 +21,6 @@ class Values(models.Model):
     def __str__(self):
         return str(self.temperature) + ' ' +  str(self.time)
 
+    class Meta:
+        get_latest_by = 'time'
 

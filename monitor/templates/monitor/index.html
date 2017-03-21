@@ -1,10 +1,53 @@
+{% extends 'monitor/base.html' %}
+
+
+
+
+{% block body %}
 {% if all_sensors %}
     <h3>Aici sunt toti Senzorii Mei:</h3>
+     <div class="container">
+    <div id="g1" class="gauge"></div>
+
+
+
+  </div>
+{% load staticfiles %}
+<script src="{% static 'js/justgauge/raphael-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/justgauge/justgage.js' %}"></script>
+    <script>
+    var g1;
+    document.addEventListener("DOMContentLoaded", function(event) {
+        g1 = new JustGage({
+            id: "g1",
+            title: "Visitors",
+            value: 72.41,
+            decimals: 2,
+            symbol: '˚',
+            min: 0,
+            max: 100,
+            donut: true,
+            gaugeWidthScale: 0.6,
+            counter: true,
+            hideInnerShadow: true
+        });
+
+        document.getElementById('g1_refresh').addEventListener('click', function() {
+            g1.refresh(getRandomInt(0, 100));
+        });
+    });
+    </script>
+
     <ul>
         {% for sensor in all_sensors %}
-        <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }} - {{ sensor.sensor_ip }}</a> </li>
+        <li><a href="/monitor/{{ sensor.id}}"> {{ sensor.name }} -  {{ sensor.id }} -  {{ sensor.values_set.latest.temperature }}
+        </a> </li>
         {% endfor %}
+
     </ul>
+
 {% else %}
     <h3>No Sensors detected</h3>
 {% endif %}
+
+{% endblock %}

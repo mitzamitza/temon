@@ -11,7 +11,18 @@ from datetime import datetime, timedelta
 
 def index(request):
     all_sensors = Sensor.objects.all()
-    return render(request, 'monitor/index.html', {'all_sensors' : all_sensors})
+#   all_values = []
+
+#    def sf():
+#    for sensoir in all_sensors:
+#        caca = Values.objects.filter(id__exact=sensoir.id).order_by('-id')[0]
+#        all_values.append(caca.temperature)
+
+
+    all_values = Values.objects.all()
+
+
+    return render(request, 'monitor/index.html', {'all_sensors' : all_sensors, 'all_values' : all_values})
 
 def detail(request, sensor_id):
     try:

@@ -1,0 +1,12 @@
+body{
+    background: white url("/static/monitor/images/bck.jpg");
+}
+
+.navbar{
+    border-radius: -;
+}
+
+.navbar-brand{
+    font-family: 'Days One', cursive;
+    font-size: 200%;
+}
