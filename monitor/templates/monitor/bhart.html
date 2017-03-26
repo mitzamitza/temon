@@ -1,0 +1,27 @@
+{% extends 'monitor/base.html' %}
+
+
+{% block body %}
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FC-python wrapper</title>
+	{% load static %}
+   <script type="text/javascript" src="{% static 'js/fusioncharts/fusioncharts.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/fusioncharts/themes/fusioncharts.theme.fint.js' %}"></script>
+</head>
+<body>
+	<div id="chart-1">{{ output|safe }}</div>
+</body>
+</html>
+
+
+<br>
+<div id="container" style="width: 610px; height: 300px; margin: 0 auto align: left"> Chart will be rendered here </div>
+<li>ORA ESTE {% now "SHORT_DATETIME_FORMAT" %}</li>
+{% endblock %}
+

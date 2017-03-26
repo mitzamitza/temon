@@ -1,0 +1,47 @@
+{% extends 'monitor/base.html' %}
+
+
+
+
+{% block body %}
+{% if all_sensors %}
+<div class="row-md-4">
+    <h4>Sensor list: </h4>
+</div>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-md-4">
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Sensor IP</th>
+                <th>Sensor Model</th>
+                <th>Sensor Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sensor in all_sensors %}
+            <tr>
+                <td>{{ sensor.id }}</td>
+                <td>{{ sensor.name }}</td>
+                <td>{{ sensor.sensor_ip }}</td>
+                <td>{{ sensor.sensor_model }}</td>
+                <td><img src="{{ sensor.picture }}" height="50" width="50"  ></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        </div>
+    </div>
+</div>
+
+{% else %}
+    <h3>No Sensors detected</h3>
+{% endif %}
+
+{% endblock %}

@@ -12,4 +12,12 @@ urlpatterns = [
 
     # chart
     url(r'^chart/$', views.weather_chart_view, name='chart'),
+
+    # bhart
+    url(r'^bhart/$', views.chart, name='bhart'),
+
+    # Sensors
+    url(r'^sensors/$', views.sensors, name='sensors'),
+
+
 ]
