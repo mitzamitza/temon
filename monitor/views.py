@@ -107,33 +107,14 @@ def chart(request):
         "plotToolText": "<div><b>$label</b><br/>Temperatura : <b>$value grade</b></div>",
         "theme": "fint"
     }]
+    lst = []
+    for k in range(1, 24):
+        caca = (datetime.now() + timedelta(hours=k))
+        ch = int(caca.hour)
+        lst.append({'label': ch})
 
     dataSource['categories'] = [{
-        "category": [{
-            "label": "Z1"
-        }, {
-            "label": "Z2"
-        },{
-            "label": "Z3"
-        }, {
-            "label": "Z4"
-        }, {
-            "label": "Z5"
-        },{
-            "label": "Z6"
-        }, {
-            "label": "Z7"
-        },{
-            "label": "Z8"
-        }, {
-            "label": "Z9"
-        }, {
-            "label": "Z10"
-        },{
-            "label": "Z11"
-        }, {
-            "label": "Z12"
-        }]
+        "category": lst
     }]
 
 
@@ -157,18 +138,11 @@ def chart(request):
     d2 = { "data" : dataSource2['data']}
     dataSource['dataset'].append(d1)
     dataSource['dataset'].append(d2)
-    #dataSource['dataset'] =  [{ "data" : dataSource1['data'] , "data": dataSource2['data']}]
-
-
-
-
-        #dataSource['data'] + dataSource['data2']
-
 
 
     # returning complete JavaScript and HTML code, which is used to generate chart in the browsers.
     # Create an object for the column2d chart using the FusionCharts class constructor
-    column2d = FusionCharts("msspline", "ex1", "900", "400", "chart-1", "json", dataSource)
+    column2d = FusionCharts("msspline", "ex1", "700", "300", "chart-1", "json", dataSource)
 #    return render_to_response('monitor/bhart.html', {'output' : column2d.render()})
     return render(request, 'monitor/bhart.html', {'output' : column2d.render()})
 
