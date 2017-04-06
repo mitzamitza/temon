@@ -1,0 +1,17 @@
+{% extends 'monitor/base.html' %}
+{% block title%}Sensor Detail{% endblock %}
+
+{% block body %}
+<p>
+
+         <h1>New post</h1>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+
+
+</p>
+{% endblock %}

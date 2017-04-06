@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 
 # Create your models here.
@@ -10,6 +11,9 @@ class Sensor(models.Model):
     sensor_model = models.CharField(max_length=90)
     picture = models.CharField(max_length=1000)
     current_temperature = models.FloatField(max_length=100)
+
+    def get_absolute_url(self):
+        return reverse('monitor:detail', kwargs={'pk' : self.pk})
 
     def __str__(self):
         return self.name + ' - ' + self.sensor_model + ' --------- ' + str(self.current_temperature) + ' grade'
@@ -24,3 +28,8 @@ class Values(models.Model):
     class Meta:
         get_latest_by = 'time'
 
+class Thermostat(models.Model):
+    temperature = models.FloatField(max_length=100)
+
+    def __str__(self):
+        return str(self.temperature)

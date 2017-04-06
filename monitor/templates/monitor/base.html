@@ -11,8 +11,10 @@
 <link rel="stylesheet" href="{% static 'js/bootstrap/css/bootstrap.min.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Days One" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{% static 'monitor/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/flipclock/flipclock.css' %}">
 <script src="{% static 'js/jquery/jquery.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/flipclock/flipclock.js' %}"></script>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -43,7 +45,7 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="{% url 'index'%}">
+                    <a href="{% url 'thermostat'%}">
                         <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp
                         Thermostat
                     </a>
@@ -57,10 +59,24 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="clock" style="margin:0em;">
+                        <span class="glyphicon glyphicon-cd" aria-hidden="true"><script type="text/javascript">
+			var clock;
+
+			$(document).ready(function() {
+				clock = $('.clock').FlipClock({
+					clockFace: 'TwentyFourHourClock',
+					showSeconds: false
+				});
+			});
+		</script></span>&nbsp
+
+                    </a>
+                </li>
                 <li class="">
-                    <a href="{% url 'index'%}">
-                        <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp
-                        TemperatureNow
+                    <a href="{% url 'sensors-add'%}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp
+                        Add Sensor
                     </a>
                 </li>
                 <li class="">

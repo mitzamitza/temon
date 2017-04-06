@@ -1,11 +1,14 @@
 from django.http import Http404
-from django.shortcuts import render, render_to_response
-from .models import Sensor, Values
-from chartit import DataPool, Chart
+from django.shortcuts import render, render_to_response, redirect
 from django.db.models import Q
+from .models import Sensor, Values, Thermostat
+from .forms import Tedit
+from chartit import DataPool, Chart
 from monitor.models import Values
+from monitor.models import Thermostat
 from datetime import datetime, timedelta
 from .fusioncharts import FusionCharts
+from  django.views.generic import CreateView, UpdateView, DeleteView
 
 #from .decorators import add_source_code_and_doc
 
@@ -92,7 +95,10 @@ def chart(request):
         "caption": "Temperatures",
         "subCaption": "24 hours temperaturess",
         "captionPadding": "15",
-        "showvalues": "1",
+        "xaxisname": "Ora",
+        "yaxisname": "Temperatura",
+        "showvalues": "0",
+        "showLegend" : "1",
         "valueFontColor": "#ffffff",
         "placevaluesInside": "1",
         "usePlotGradientColor": "0",
@@ -104,13 +110,15 @@ def chart(request):
         "showAlternateVGridColor": "0",
         "alignCaptionWithCanvas": "0",
         "legendPadding": "15",
-        "plotToolText": "<div><b>$label</b><br/>Temperatura : <b>$value grade</b></div>",
+        "drawCrossLine": "0",
+        "palettecolors": "#f8bd19,#e44a00,#33bdda,#008ee4,#6baa01,#583e78",
+        "plotToolText": "<div>Ora:<b>$label:00</b><br/>Temperatura : <b>$value grade</b></div>",
         "theme": "fint"
     }]
     lst = []
-    for k in range(1, 24):
+    for k in range(1, 25):
         caca = (datetime.now() + timedelta(hours=k))
-        ch = int(caca.hour)
+        ch = float(caca.hour)
         lst.append({'label': ch})
 
     dataSource['categories'] = [{
@@ -136,7 +144,12 @@ def chart(request):
 
     d1 = { "data" : dataSource1['data']}
     d2 = { "data" : dataSource2['data']}
+    d3 = {"seriesname": "Birou"}
+    d4 = {"seriesname": "Exterior"}
+
+    dataSource['dataset'].append(d3)
     dataSource['dataset'].append(d1)
+    dataSource['dataset'].append(d4)
     dataSource['dataset'].append(d2)
 
 
@@ -144,7 +157,29 @@ def chart(request):
     # Create an object for the column2d chart using the FusionCharts class constructor
     column2d = FusionCharts("msspline", "ex1", "700", "300", "chart-1", "json", dataSource)
 #    return render_to_response('monitor/bhart.html', {'output' : column2d.render()})
-    return render(request, 'monitor/bhart.html', {'output' : column2d.render()})
+    return render(request, 'monitor/chart.html', {'output' : column2d.render()})
+
+def thermostat(request):
+    if request.method == 'POST':
+        form = Tedit(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=True)
+            post.save
+            return redirect('thermostat')
+        else:
+            print(form.errors)
+
+    else:
+        form = Tedit()
+    return render(request, 'monitor/thermostat.html', {'form' : form})
+
+def sensoradd(CreateView):
+    model = Sensor
+    fields = ['name', 'location', 'sensor_ip', 'sensor_model', 'picture']
+
+
+
 
 
 
